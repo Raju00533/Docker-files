@@ -1,0 +1,29 @@
+# base image
+FROM node:20-lts
+
+# set the working directory
+WORKDIR /usr/src/app
+
+# copy package.json and package-lock.json
+
+COPY package*.json ./
+
+# install the dependencies 
+
+RUN npm install --production
+
+# Build a production ready package 
+
+RUN npm run build
+
+# copy all the codes and files to the container 
+
+COPY . .
+
+# Expose port to run the application
+
+EXPOSE 3000
+
+# command to run when container starts 
+
+CMD ["node", "server.js"]
